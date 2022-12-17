@@ -22,18 +22,37 @@ fn main() {
 
     for (i, new_character) in line.chars().enumerate() {
 
-
         deque.push_front(new_character);
 
-        if deque.len() > 4 {
+        if deque.len() > 14 {
             deque.pop_back();
         }
 
-        if deque.len() == 4 {
-            //println!("deque {}{}{}{}", deque[0], deque[1], deque[2], deque[3]);
+        if deque.len() == 14 {
 
-            if deque[0] != deque[1] && deque[0] != deque[2] && deque[0] != deque[3] && deque[1] != deque[2] && deque[1] != deque[3] && deque[2] != deque[3]{
-                println!("found at i {}, {}{}{}{}", i, deque[0], deque[1], deque[2], deque[3]);
+            let mut unique = true;
+
+            for j in 0..14 {
+                for k in j+1..14 {
+                    unique &= deque[j] != deque[k];
+                    if !unique {
+                        println!("j {} k {} deque[j] {} deque[k] {}", j, k, deque[j], deque[k]);
+                        break;
+                    }
+                }
+
+                if !unique {
+                    break;
+                }
+            }
+
+            if unique {
+                let mut print_out = format!("found at i {}, ", i);
+
+                for c in deque {
+                    print_out.push(c);
+                }
+                println!("{}", print_out);
                 break;
             }
         }
